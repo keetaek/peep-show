@@ -1,12 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kakaw.peepshow.peepshowandroidclient">
+    package="com.kakaw.peepshow">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application android:allowBackup="true"
         android:label="@string/app_name"
+        android:name="com.kakaw.peepshow.application.PeepShowApplication"
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.kakaw.peepshow.activity.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -15,6 +18,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:label="@string/title_facebook_login" >
+        </activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
     </application>
 
 </manifest>
