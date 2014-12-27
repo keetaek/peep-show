@@ -24,6 +24,7 @@ public class HiddenItemDTO {
     private UserDTO dropper;
     private LocationDTO location;
     private Date deadline;
+    private String dropId;
 
     public String getDropId() {
         return dropId;
@@ -56,8 +57,5 @@ public class HiddenItemDTO {
     public void setDropper(UserDTO dropper) {
         this.dropper = dropper;
     }
-
-    private String dropId;
-
 
 }

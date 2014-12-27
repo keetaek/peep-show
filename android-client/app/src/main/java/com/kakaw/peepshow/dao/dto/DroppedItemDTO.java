@@ -33,10 +33,11 @@ import java.util.Date;
 public class DroppedItemDTO {
 
     private String dropId;
-    private UserDTO[] finders;
-    private String photo;
+    private FinderDTO[] finders;
+    private MediaDTO[] media;
     private LocationDTO location;
     private Date deadline;
+    private String comments;
 
 
     public String getDropId() {
@@ -61,6 +62,46 @@ public class DroppedItemDTO {
 
     public void setLocation(LocationDTO location) {
         this.location = location;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public MediaDTO[] getMedia() {
+        return media;
+    }
+
+    public void setMedia(MediaDTO[] media) {
+        this.media = media;
+    }
+
+    public FinderDTO[] getFinders() {
+        return finders;
+    }
+
+    public void setFinders(FinderDTO[] finders) {
+        this.finders = finders;
+    }
+
+    /**
+     * Extending the User class to add the status property
+     */
+    public static class FinderDTO extends UserDTO {
+
+        private String status;
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
     }
 
 }

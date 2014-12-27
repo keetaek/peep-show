@@ -1,6 +1,6 @@
 package com.kakaw.peepshow.dao;
 
-import com.kakaw.peepshow.dao.dto.UserDTO;
+import com.kakaw.peepshow.dao.dto.DropInfoDTO;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -12,5 +12,5 @@ public interface UserServiceClient {
 
     // http://localhost/peepshow/users/1/dropinfo.json
     @GET("/peepshow/users/{userId}/dropinfo.json")
-    UserDTO getUser(@Path("userId") String userId);
+    DropInfoDTO getUserDropInfo(@Path("userId") String userId);
 }

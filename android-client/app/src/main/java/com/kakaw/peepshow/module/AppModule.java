@@ -7,6 +7,7 @@ import com.kakaw.peepshow.activity.BaseActivity;
 import com.kakaw.peepshow.application.PeepShowApplication;
 import com.kakaw.peepshow.helper.AnalyticsHelper;
 import com.kakaw.peepshow.manager.BaseManager;
+import com.kakaw.peepshow.manager.ManagerProxyFactory;
 import com.squareup.otto.Bus;
 
 import java.util.concurrent.ExecutorService;
@@ -24,7 +25,7 @@ import static android.content.Context.LOCATION_SERVICE;
  */
 
 //@formatter:off
-@Module(library = true, injects = {BaseManager.class, BaseActivity.class})
+@Module(library = true, injects = {BaseManager.class, BaseActivity.class, ManagerProxyFactory.class})
 public class AppModule {
 
     private final PeepShowApplication application;

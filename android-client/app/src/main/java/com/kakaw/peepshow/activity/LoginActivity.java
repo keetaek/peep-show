@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
@@ -44,25 +45,11 @@ public class LoginActivity extends BaseActivity {
         }
     };
 
-    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
-//        if (state == SessionState.OPENED
-//                && !session.getPermissions().containsAll(Lists.newArrayList(Constants.Login.FB_PUBLISH_PERMISSIONS))) {
-//            session.requestNewPublishPermissions(new Session.NewPermissionsRequest(
-//                    LoginActivity.this,
-//                    Constants.Login.FB_PUBLISH_PERMISSIONS));
-//        }
-        if (state.isOpened()) {
-            Log.i(TAG, "Logged in...");
-        } else if (state.isClosed()) {
-            Log.i(TAG, "Logged out...");
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.single_fragment_activity_layout);
 
         uiHelper = new UiLifecycleHelper(this, sessionStatusCallback);
         uiHelper.onCreate(savedInstanceState);
@@ -110,6 +97,16 @@ public class LoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         uiHelper.onActivityResult(requestCode, resultCode, data, dialogCallback);
+
+        if (Session.getActiveSession().isOpened()) {
+            // if the user is authenticated, then send the user to MainActivity to show map view.
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Failed to Login", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -127,16 +124,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        // For scenarios where the main activity is launched and user
-        // session is not null, the session state change notification
-        // may not be triggered. Trigger it if it's open/closed.
-        Session session = Session.getActiveSession();
-        if (session != null &&
-                (session.isOpened() || session.isClosed()) ) {
-            onSessionStateChange(session, session.getState(), null);
-        }
-
         uiHelper.onResume();
     }
 

@@ -5,21 +5,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.kakaw.peepshow.R;
-import com.kakaw.peepshow.fragment.TestbedFragment;
+import com.kakaw.peepshow.fragment.MapFragment;
 import com.kakaw.peepshow.module.UserModule;
 
 import java.util.Arrays;
 
 
-public class TestbedActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.single_fragment_activity_layout);
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new TestbedFragment())
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new MapFragment())
                     .commit();
         }
     }

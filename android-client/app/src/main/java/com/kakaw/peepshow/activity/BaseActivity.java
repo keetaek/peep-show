@@ -3,7 +3,10 @@ package com.kakaw.peepshow.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
+import com.facebook.Session;
+import com.facebook.SessionState;
 import com.kakaw.peepshow.application.PeepShowApplication;
 import com.kakaw.peepshow.helper.AnalyticsHelper;
 
@@ -18,6 +21,7 @@ import dagger.ObjectGraph;
  */
 public abstract class BaseActivity extends FragmentActivity {
     private ObjectGraph activityGraph;
+    private Session mSession;
 
     @Inject
     AnalyticsHelper analyticsHelper;
@@ -57,6 +61,29 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onResume();
         // FACEBOOK - Logs 'install' and 'app activate' App Events.
         analyticsHelper.resumeAppTrigger(this);
+
+        // For scenarios where the main activity is launched and user
+        // session is not null, the session state change notification
+        // may not be triggered. Trigger it if it's open/closed.
+        mSession = Session.getActiveSession();
+        if (mSession != null &&
+                (mSession.isOpened() || mSession.isClosed()) ) {
+            onSessionStateChange(mSession, mSession.getState(), null);
+        }
+    }
+
+    protected void onSessionStateChange(Session session, SessionState state, Exception exception) {
+//        if (state == SessionState.OPENED
+//                && !session.getPermissions().containsAll(Lists.newArrayList(Constants.Login.FB_PUBLISH_PERMISSIONS))) {
+//            session.requestNewPublishPermissions(new Session.NewPermissionsRequest(
+//                    LoginActivity.this,
+//                    Constants.Login.FB_PUBLISH_PERMISSIONS));
+//        }
+        if (state.isOpened()) {
+            Log.i(LoginActivity.TAG, "Logged in...");
+        } else if (state.isClosed()) {
+            Log.i(LoginActivity.TAG, "Logged out...");
+        }
     }
 
     /**
