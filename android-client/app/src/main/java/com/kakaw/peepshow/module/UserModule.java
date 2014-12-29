@@ -9,7 +9,8 @@ import com.kakaw.peepshow.activity.LoginActivity;
 import com.kakaw.peepshow.activity.MainActivity;
 import com.kakaw.peepshow.dao.FacebookDAO;
 import com.kakaw.peepshow.dao.UserServiceClient;
-import com.kakaw.peepshow.fragment.MapFragment;
+import com.kakaw.peepshow.fragment.DropInfoListFragment;
+import com.kakaw.peepshow.fragment.DropInfoMapFragment;
 import com.kakaw.peepshow.manager.ManagerProxyFactory;
 import com.kakaw.peepshow.manager.UserActivitySummaryManager;
 import com.kakaw.peepshow.manager.UserActivitySummaryManagerImpl;
@@ -25,7 +26,7 @@ import retrofit.converter.GsonConverter;
  * Created by keetaekhong on 10/12/14.
  */
 //@formatter:off
-@Module(injects = {LoginActivity.class, MainActivity.class, MapFragment.class, UserActivitySummaryManagerImpl.class }, complete = false, addsTo = AppModule.class, library = true)
+@Module(injects = {LoginActivity.class, MainActivity.class, DropInfoMapFragment.class, DropInfoListFragment.class, UserActivitySummaryManagerImpl.class }, complete = false, addsTo = AppModule.class, library = true)
 public class UserModule {
 
 //    private static final String API_URL = "http://10.0.2.2";

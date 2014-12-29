@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merger version="2" >
 
-    <dataSet config="21.0.0" >
-        <source path="/Users/keetaekhong/workspace/peep-show/android-client/facebook/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/res" />
+    <dataSet config="21.0.3" >
+        <source path="/Users/keetaekhong/workspace/peep-show/android-client/facebook/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/res" />
     </dataSet>
     <dataSet config="main" >
         <source path="/Users/keetaekhong/workspace/peep-show/android-client/facebook/res" >

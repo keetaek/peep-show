@@ -1,6 +1,7 @@
 package com.kakaw.peepshow.fragment;
 
-import android.support.v4.app.Fragment;
+
+import android.app.Fragment;
 import android.os.Bundle;
 
 import com.kakaw.peepshow.activity.BaseActivity;
