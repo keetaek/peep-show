@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PeepShowAndroidClient</string>
+    <string name="app_name">PeepShow</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">309280115945430</string>
