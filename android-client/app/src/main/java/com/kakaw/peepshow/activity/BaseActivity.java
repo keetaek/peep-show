@@ -1,6 +1,7 @@
 package com.kakaw.peepshow.activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,6 +19,8 @@ import dagger.ObjectGraph;
 
 /**
  * Created by keetaekhong on 10/14/14.
+ *
+ * Facebook Session needs to be refactored into the UserManager instead of deeply embedded in the Activities.
  */
 public abstract class BaseActivity extends ActionBarActivity {
     private ObjectGraph activityGraph;
@@ -84,6 +87,13 @@ public abstract class BaseActivity extends ActionBarActivity {
         } else if (state.isClosed()) {
             Log.i(LoginActivity.TAG, "Logged out...");
         }
+    }
+
+    protected void closeCurrentAndLaunchNewActivity(Class activityClass) {
+        // if the user is authenticated, then send the user to MainActivity to show map view.
+        Intent intent = new Intent(this, activityClass);
+        startActivity(intent);
+        finish();
     }
 
     /**

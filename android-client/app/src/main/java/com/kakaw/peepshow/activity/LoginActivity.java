@@ -50,9 +50,12 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.single_fragment_activity_layout);
-
         uiHelper = new UiLifecycleHelper(this, sessionStatusCallback);
         uiHelper.onCreate(savedInstanceState);
+        // NOTE - It is critical to run uiHelper to populate Session.
+        if (Session.getActiveSession().isOpened()) {
+            closeCurrentAndLaunchNewActivity(MainActivity.class);
+        }
 
         if (savedInstanceState == null) {
             // Add the fragment on initial activity setup
@@ -99,14 +102,10 @@ public class LoginActivity extends BaseActivity {
         uiHelper.onActivityResult(requestCode, resultCode, data, dialogCallback);
 
         if (Session.getActiveSession().isOpened()) {
-            // if the user is authenticated, then send the user to MainActivity to show map view.
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            closeCurrentAndLaunchNewActivity(MainActivity.class);
         } else {
             Toast.makeText(this, "Failed to Login", Toast.LENGTH_LONG).show();
         }
-
     }
 
     @Override
@@ -125,6 +124,10 @@ public class LoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         uiHelper.onResume();
+        // NOTE - It is critical to run uiHelper to populate Session. If the user is authenticated, we send them to MainActivity
+        if (Session.getActiveSession().isOpened()) {
+            closeCurrentAndLaunchNewActivity(MainActivity.class);
+        }
     }
 
     @Override

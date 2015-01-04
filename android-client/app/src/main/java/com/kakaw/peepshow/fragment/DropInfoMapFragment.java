@@ -2,6 +2,7 @@ package com.kakaw.peepshow.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.kakaw.peepshow.map.PeepshowOverlayItem;
 import com.squareup.otto.Subscribe;
 
 import org.osmdroid.ResourceProxy;
+import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.util.ResourceProxyImpl;
 import org.osmdroid.views.MapView;
@@ -154,8 +156,8 @@ public class DropInfoMapFragment extends BaseFragment {
         mMapView.getOverlays().add(this.mMinimapOverlay);
         mMapView.getOverlays().add(this.mScaleBarOverlay);
 
-        mMapView.getController().setZoom(mPrefs.getInt(Constants.Map.PREFS_ZOOM_LEVEL, 1));
-        mMapView.scrollTo(mPrefs.getInt(Constants.Map.PREFS_SCROLL_X, 0), mPrefs.getInt(Constants.Map.PREFS_SCROLL_Y, 0));
+//        mMapView.getController().setZoom(mPrefs.getInt(Constants.Map.PREFS_ZOOM_LEVEL, 1));
+//        mMapView.scrollTo(mPrefs.getInt(Constants.Map.PREFS_SCROLL_X, 0), mPrefs.getInt(Constants.Map.PREFS_SCROLL_Y, 0));
 
         mLocationOverlay.enableMyLocation();
         mCompassOverlay.enableCompass();
@@ -171,17 +173,29 @@ public class DropInfoMapFragment extends BaseFragment {
                 "North of Central Park in New York City", new GeoPoint(41.7820, -73.9660),
                 mResourceProxy.getDrawable(ResourceProxy.bitmap.marker_default), OverlayItem.HotspotPlace.CENTER));
 
-        items.add(new PeepshowOverlayItem("MyHome", "My Home",
-                "My home in Fremont", new GeoPoint(47.6497, -73.9660),
-                mResourceProxy.getDrawable(ResourceProxy.bitmap.marker_default), OverlayItem.HotspotPlace.CENTER));
-
+        GeoPoint myHomeGeoPt = new GeoPoint(47.649751, -122.346134);
 //        items.add(new PeepshowOverlayItem("MyHome", "My Home",
-//                "My home in Fremont", new GeoPoint(47.649751, -122.346134),
+//                "My home in Fremont", myHomeGeoPt,
 //                mResourceProxy.getDrawable(ResourceProxy.bitmap.marker_default), OverlayItem.HotspotPlace.CENTER));
 
         items.add(new PeepshowOverlayItem("Milstead", "Milstead",
                 "My favorite coffee shop", new GeoPoint(47.649431, -122.347757),
-                mResourceProxy.getDrawable(ResourceProxy.bitmap.marker_default), OverlayItem.HotspotPlace.CENTER));
+                mResourceProxy.getDrawable(ResourceProxy.bitmap.marker_default), OverlayItem.HotspotPlace.TOP_CENTER));
+
+        // Setting the zoom level and fixing the camera to my home location.
+        mMapView.getController().setZoom(mPrefs.getInt(Constants.Map.PREFS_ZOOM_LEVEL, 10));
+        mMapView.getController().setCenter(myHomeGeoPt);
+
+        Marker startMarker = new Marker(mMapView);
+        startMarker.setPosition(myHomeGeoPt);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        startMarker.setIcon(getResources().getDrawable(R.drawable.ic_launcher));
+        startMarker.setTitle("Start point");
+        startMarker.setSnippet("Description of a kind?");
+        startMarker.setSubDescription("Sub description");
+        Drawable icon = getResources().getDrawable(R.drawable.ic_continue);
+        startMarker.setImage(icon);
+        mMapView.getOverlays().add(startMarker);
 
         			/* OnTapListener for the Markers, shows a simple Toast. */
         this.mMyLocationOverlay = new PeepshowItemizedOverlay(items,
@@ -207,7 +221,7 @@ public class DropInfoMapFragment extends BaseFragment {
 
                 }, mResourceProxy);
         mMapView.getOverlays().add(this.mMyLocationOverlay);
-
+        mMapView.invalidate();
         setHasOptionsMenu(true);
     }
 

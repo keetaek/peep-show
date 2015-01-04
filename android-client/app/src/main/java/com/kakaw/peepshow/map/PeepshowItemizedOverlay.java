@@ -11,8 +11,8 @@ import android.widget.TextView;
 import org.osmdroid.ResourceProxy;
 import org.osmdroid.api.IMapView;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlay;
+import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by keetaekhong on 1/2/15.
  */
 
-public class PeepshowItemizedOverlay<Item extends OverlayItem> extends ItemizedIconOverlay<Item> implements
+public class PeepshowItemizedOverlay<Item extends OverlayItem> extends ItemizedOverlayWithFocus<Item> implements
         ItemizedOverlay.OnFocusChangeListener {
 
     private boolean mFocusChanged = false;
@@ -47,7 +47,7 @@ public class PeepshowItemizedOverlay<Item extends OverlayItem> extends ItemizedI
 
 
     @Override
-    protected void draw(Canvas c, MapView mapView, boolean shadow) {
+    public void draw(Canvas c, MapView mapView, boolean shadow) {
         if (mFocusChanged) {
             mFocusChanged = false;
 
